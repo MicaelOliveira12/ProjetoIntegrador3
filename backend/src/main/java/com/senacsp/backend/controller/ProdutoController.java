@@ -39,7 +39,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/listar")
-    public Page<ProdutoModel> listarProdutos(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pagina){
+    public Page<ProdutoModel> listarProdutos(@PageableDefault(size = 20, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pagina){
         return produtoRepository.findAll(pagina);
     }
 
@@ -47,6 +47,5 @@ public class ProdutoController {
     public ResponseEntity <ProdutoRecordConstructor> mostrarProdutoCompleto(@PathVariable Long id){
         return ResponseEntity.ok(new MostrarProdutoCompleto().response(produtoRepository, fotosProdutoRepository,id));
     }
-
 
 }
