@@ -27,8 +27,6 @@ const DivParent = Styled.div`
   width:80%;
   margin: auto;
   padding: 10px;
-  margin-top: 100px;
-  background-color:#f1f1f1;
 `;
 
 const DivSlider = Styled.div`
@@ -40,7 +38,17 @@ const Image = Styled.img`
   width: 100%;
   height: auto;
   objectFit: 'contain';
+  margin: 10px 0;
 `;
+
+
+
+
+
+
+
+
+
 
 const Slider = () => {
   return (
@@ -48,9 +56,9 @@ const Slider = () => {
       <Carousel
         responsive={responsive}
         autoPlay={true}
-        swipeable={true}
+        swipeable={false}
         draggable={true}
-        showDots={true}
+        showDots={false}
         infinite={true}
         partialVisible={false}
         dotListClass="custom-dot-list-style"

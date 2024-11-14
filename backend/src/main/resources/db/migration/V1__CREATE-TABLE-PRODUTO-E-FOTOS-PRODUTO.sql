@@ -1,4 +1,4 @@
-CREATE TABLE PRODUTO (
+CREATE TABLE IF NOT EXISTS PRODUTO (
     id INT NOT NULL AUTO_INCREMENT,
     nome_produto VARCHAR (100),
     descricao_produto VARCHAR(200),
@@ -10,11 +10,11 @@ CREATE TABLE PRODUTO (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE FOTOS_PRODUTO(
+CREATE TABLE IF NOT EXISTS FOTOS_PRODUTO(
     id INT NOT NULL AUTO_INCREMENT,
     id_produto INT NOT NULL,
     nome_foto VARCHAR (100),
-    url_foto VARCHAR (100),
+    url_foto VARCHAR (255),
     flag_img CHAR,
 
     PRIMARY KEY (id),

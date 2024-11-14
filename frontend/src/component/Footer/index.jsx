@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from "./Footer.module.css";
 import facebook from "../../Images/icons/facebook.png";
 import twitter from "../../Images/icons/twitter.png";
