@@ -109,6 +109,7 @@ const CardContainer = Styled.div`
     margin-bottom: 20px;
     border-radius: 20px;
     box-shadow: 0 0 10px #e8e8ed;
+    align-items: center;
 
     &:hover{
         box-shadow: 0 0 15px #d2d2d7;
@@ -118,7 +119,9 @@ const CardContainer = Styled.div`
 const Image = Styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    max-width: 300px;
+    object-fit: contain;
+    margin: auto; 
     `
 const Title = Styled.h1`
     width: 100%;    
