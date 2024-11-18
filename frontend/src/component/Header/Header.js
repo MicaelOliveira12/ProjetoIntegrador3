@@ -1,8 +1,8 @@
 import Styled from "styled-components";
 import { Link } from "react-router-dom";
 import Logo from '../../Images/icons/Logo.png';
-import Menu from '../MenuItens/HamburguerMenu';
-import React, {useEffect, useState} from 'react';
+import Menu from '../MenuHamburguer/HamburguerMenu';
+import { useUser } from '../../Context/userContext';
 
 const HeaderContainer = Styled.header`
   margin: 0;
@@ -18,18 +18,14 @@ const HeaderContainer = Styled.header`
 const ContainerLogo = Styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;  
+  justify-content: center;  
 `
 const ImageLogo = Styled.img`
 width: 100px;
 height: 100px;
 border-radius: 10px; 
 object-fit: contain;
-margin: 0;
 `
 const TitleLogo = Styled.h1`
   font-size: 24px;
@@ -42,7 +38,6 @@ const ContainerNav = Styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
   align-items: flex-end;
   justify-content: flex-start;
   padding-bottom: 10px;
@@ -61,32 +56,22 @@ const StyledLink = Styled(Link)`
 `
 function Header() {
 
-  const [user, setUser] = useState(null);
+  const { user, loading } = useUser();
 
-  const [userLogin, setUserLogin] = useState(false);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(sessionStorage.getItem('user'));
-    if(storedUser){
-      setUser(storedUser);
-      setUserLogin(true);
-    }
-  },[]);
+  if (loading) return null;
 
   return (
     <HeaderContainer>
       <ContainerLogo>
-        <Link to='/'>
+        <Link to='/home'>
           <ImageLogo src={Logo} />
         </Link>
         <TitleLogo>Apple Sphere Thech</TitleLogo>
       </ContainerLogo>
       <ContainerNav>
         <StyledLink to='/home'>Home</StyledLink>
-        <StyledLink to='/loja'>Loja</StyledLink>
-        <StyledLink to='/login'>Login</StyledLink>
-        {userLogin ?(<Menu />):('')}
-        
+        <StyledLink to='/store'>Loja</StyledLink>
+        {user ? (<Menu />) : (<StyledLink to='/login'>Login</StyledLink>)}
       </ContainerNav>
     </HeaderContainer>
   );

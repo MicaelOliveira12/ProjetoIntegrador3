@@ -1,7 +1,8 @@
 import Styled from 'styled-components';
 import Banner2 from '../Images/icons/Banner1.jpg';
 import Banner1 from '../Images/icons/Banner2.jpg';
-import Carousel from '../component/Carousel/Carousel';
+import Slider from '../component/Carousel/Carousel';
+import { sliderImageUrl } from "../component/Carousel/dataCarousel";
 
 import { Link } from 'react-router-dom';
 
@@ -75,10 +76,11 @@ const StyledLink = Styled(Link)`
     }
 `
 const ContainerCarousel = Styled.div`
+    width: 100%;
     grid-row: 2;
     grid-column: 1 / span 2;
     position: relative;
-    margin: 15px 0;
+    margin: 50px 0;
 `
 const Text = Styled.h1`
     text-align: center;
@@ -86,24 +88,85 @@ const Text = Styled.h1`
     font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
     line-height: 1.07143;
     letter-spacing: .05em;
+    margin: 50px 0;
 `
+const ArrowButton = Styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) ${(props) => props.rotate};
+  padding: 15px;
+  box-shadow: 4px -4px 0 1px gray inset;
+  border: solid transparent;
+  border-width: 0 0 2px 2px;
+  background-color: transparent;
+  color: gray;
+  font-size: 20px;
+  z-index: 999;
 
+  &:hover {
+    color: black;
+  }
+`
+const responsive = {
+    superLargeDesktop: {
+        breakpoint: { max: 4000, min: 3000 },
+        items: 4,
+    },
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3,
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+    },
+};
 function Home() {
+    const image = sliderImageUrl.map((foto) => foto.url);
+
+    const CustomArrow = ({ direction, onClick }) => (
+        <ArrowButton
+            onClick={onClick}
+            style={direction === 'left' ? { left: '20px' } : { right: '20px' }}
+            rotate={direction === 'left' ? 'rotate(45deg)' : 'rotate(225deg)'}>
+        </ArrowButton>
+    );
+
     return (
         <Container>
             <ContainerBanner1>
                 <ImageBanner src={Banner1} />
                 <Title>iPhone 16 Pro</Title>
-                <StyledLink to="/loja">Comprar</StyledLink>
+                <StyledLink to="/store">Comprar</StyledLink>
             </ContainerBanner1>
             <ContainerBanner2>
                 <ImageBanner src={Banner2} />
                 <Title>iPhone 16</Title>
-                <StyledLink to="/loja">Comprar</StyledLink>
+                <StyledLink to="/store">Comprar</StyledLink>
             </ContainerBanner2>
             <ContainerCarousel>
                 <Text>Conheça as cores disponíveis</Text>
-                <Carousel />
+                <Slider
+                    images={image}
+                    responsive={responsive}
+                    autoPlay={false}
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    infinite={true}
+                    partialVisible={false}
+                    autoPlaySpeed={2500}
+                    customLeftArrow={<CustomArrow direction="left" />}
+                    customRightArrow={<CustomArrow direction="right" />}
+                    dotListClass="custom-dot-list-style"
+                    customStyles={{
+                        width: '100%',
+                        borderRadius: '100px',
+                    }} />
             </ContainerCarousel>
         </Container>
     )

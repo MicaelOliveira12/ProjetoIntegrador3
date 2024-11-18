@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Loja from './routes/Loja.js';
-import Login from './routes/Login.js';
-import Home from './routes/Home.js';
-import Product from './routes/RegisterProduct.js'
-import { createGlobalStyle } from 'styled-components';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Header from './component/Header/Header';
-import Footer from './component/Footer/index.jsx';
-import Account from './routes/createAccount.js';
-import ProductRegister from './routes/RegisterProduct.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Buffer } from 'buffer';
+import { createGlobalStyle } from 'styled-components';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider } from './Context/userContext.js';
+import Header from './component/Header/Header';
+import Footer from './component/Footer/index.jsx';
+import Home from './routes/Home.js';
+import Store from './routes/Store.js';
+import Login from './routes/Login.js';
+import Account from './routes/Account.js';
+import Product from './routes/Product/RegisterProduct.js';
+import DisplayProduct from './routes/Product/DisplayProduct.js';
 
 global.Buffer = Buffer;
 const GlobalStyle = createGlobalStyle`
@@ -35,22 +36,19 @@ root.render(
   <React.StrictMode>
     <GlobalStyle />
     <BrowserRouter>
-    <Header/>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home"/>}/>
-        <Route path="/home" element={<Home />} />
-        <Route path="/loja" element={<Loja />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/productRegister" element={<ProductRegister />} />
-        
-      </Routes>
-      <Footer/>
+      <UserProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/displayProduct" element={<DisplayProduct />} />
+        </Routes>
+        <Footer />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

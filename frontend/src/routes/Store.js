@@ -1,6 +1,8 @@
+import Styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getProduct } from "../services/homeService";
-import Styled from "styled-components";
+import { useUser } from '../Context/userContext';
+import { useNavigate } from "react-router-dom";
 
 const ContainerPrincipal = Styled.div`
     display: block;
@@ -119,7 +121,7 @@ const CardContainer = Styled.div`
 const Image = Styled.img`
     width: 100%;
     height: 100%;
-    max-width: 300px;
+    max-width: 200px;
     object-fit: contain;
     margin: auto; 
     `
@@ -140,8 +142,10 @@ const Preco = Styled.p`
     font-weight: bold;
 `
 function Home() {
-
+    
     const [products, setProducts] = useState([]);
+    const { setSelectedProductId } = useUser();
+    const navigate = useNavigate();
 
     async function fetchProdutos() {
         const response = await getProduct();
@@ -151,6 +155,11 @@ function Home() {
     useEffect(() => {
         fetchProdutos()
     }, []);
+
+     const handleCardClick = (productId) => {
+        setSelectedProductId(productId);
+        navigate('/displayProduct');
+    };
 
     return (
         <ContainerPrincipal>
@@ -173,11 +182,16 @@ function Home() {
                 {
                     products.length !== 0 ? (
                         products.map(product => (
-                            <CardContainer key={product.id}>
+                            <CardContainer key={product.id} onClick={() => handleCardClick(product.id)}>
                                 <Title> {product.nomeProduto} </Title>
                                 <Image src={product.imagemPrincipal} alt="" />
                                 <Descricao>{product.descricaoProduto}</Descricao>
-                                <Preco>A partir de R${product.precoProduto.toFixed(2)}</Preco>
+                                <Preco>
+                                {Number(product.precoProduto).toLocaleString("pt-BR", {
+                                    style: "currency",
+                                    currency: "BRL",
+                                })}
+                            </Preco>
                             </CardContainer>
                         ))) : (console.log(products))}
 

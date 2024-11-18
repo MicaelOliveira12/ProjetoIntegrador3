@@ -2,74 +2,47 @@ import React from "react";
 import Styled from "styled-components";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { sliderImageUrl } from "./dataCarousel";
-
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
 
 const DivParent = Styled.div`
-  width:80%;
-  margin: auto;
-  padding: 10px;
-`;
-
+  width: 100%;
+`
 const DivSlider = Styled.div`
+  width:100%;
   display: flex;
   justify-content: center;
-`;
-
+`
 const Image = Styled.img`
-  width: 100%;
+  width: 80%;
   height: auto;
-  objectFit: 'contain';
-  margin: 10px 0;
-`;
+  border-radius: 30px;
+`
+/**
+ * Componente Slider para exibir imagens.
+ * @param {Array} images
+ */
+const Slider = ({ images, autoPlay, infinite, customStyles, responsive, customLeftArrow, customRightArrow }) => {
+  if (!images || images.length === 0) return null;
 
-
-
-
-
-
-
-
-
-
-const Slider = () => {
   return (
-    <DivParent>
+    <DivParent style={customStyles}>
       <Carousel
         responsive={responsive}
-        autoPlay={true}
+        autoPlay={autoPlay}
         swipeable={false}
         draggable={true}
         showDots={false}
-        infinite={true}
+        infinite={infinite}
         partialVisible={false}
+        autoPlaySpeed={2500}
+        customLeftArrow={customLeftArrow }
+        customRightArrow={customRightArrow}
         dotListClass="custom-dot-list-style"
       >
-        {sliderImageUrl.map((imageUrl, index) => {
-          return (
-            <DivSlider key={index}>
-              <Image src={imageUrl.url} alt="product" />
-            </DivSlider>
-          );
-        })}
+        {images.map((imageUrl, index) => (
+          <DivSlider key={index}>
+            <Image src={imageUrl} alt={`Image ${index + 1}`} />
+          </DivSlider>
+        ))}
       </Carousel>
     </DivParent>
   );
