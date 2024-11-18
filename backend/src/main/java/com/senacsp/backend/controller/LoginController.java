@@ -38,7 +38,20 @@ public class LoginController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LoginModel> buscarPorId(@PathVariable Long id) {
+        Optional<LoginModel> loginModel = Loginrepository.findById(id);
+
+        if (loginModel.isPresent()) {
+            return ResponseEntity.ok(loginModel.get());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
     private boolean verificarSenha (String senha1, String senha2){
         return senha1.equals(senha2);
     }
+
+
 }

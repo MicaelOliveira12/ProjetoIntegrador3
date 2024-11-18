@@ -20,6 +20,9 @@ public class LoginModel {
     private String emailUsuario;
     private String senhaUsuario;
     private String nomeUsuario;
+    private String dataNascimento;
+    private String telefoneUsuario;
+    private String paisUsuario;
 
     public LoginModel(LoginRecord login) {
         this.emailUsuario = login.email();

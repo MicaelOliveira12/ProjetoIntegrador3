@@ -38,12 +38,11 @@ public class UsuarioModel {
     public UsuarioModel(UsuarioRecordUPDATE usuario) {
 
         this.id = usuario.id();
-        this.nomeUsuario = usuario.nome();
-        this.paisUsuario = usuario.pais();
-        this.emailUsuario = usuario.email();
-        this.senhaUsuario = new Criptografia().encriptar(usuario.senha());
+        this.nomeUsuario = usuario.nomeUsuario();
+        this.paisUsuario = usuario.paisUsuario();
+        this.senhaUsuario = new Criptografia().encriptar(usuario.senhaUsuario());
         this.dataNascimento = usuario.dataNascimento();
-        this.telefoneUsuario = usuario.telefone();
+        this.telefoneUsuario = usuario.telefoneUsuario();
     }
 
     public UsuarioModel(Optional<UsuarioModel> usuarioModel) {

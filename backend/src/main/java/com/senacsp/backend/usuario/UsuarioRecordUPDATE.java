@@ -2,11 +2,10 @@ package com.senacsp.backend.usuario;
 
 public record UsuarioRecordUPDATE(
         Long id,
-        String nome,
-        String pais,
+        String nomeUsuario,
+        String paisUsuario,
         String dataNascimento,
-        String email,
-        String senha,
-        String telefone
+        String senhaUsuario,
+        String telefoneUsuario
 ) {
 }
